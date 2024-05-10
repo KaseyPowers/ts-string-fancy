@@ -1,0 +1,13 @@
+{
+  "name": "ts-string-fancy",
+  "version": "1.0.0",
+  "description": "Fancy String template literals",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kasey Powers",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
