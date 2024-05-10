@@ -1,13 +1,15 @@
-import { NonEmptyArray } from "./basic_types";
-import type { SmartCapitalize, SmartUncapitalize } from "./common";
-import type { AddString } from "./string_array";
+import type { SmartCapitalize, SmartUncapitalize } from "./upper_lower";
+import type { AddStringToArr } from "./array_utils/builders";
 // internal function, rebuilds array of values but capitalizing each string
 type _CapitalizeWords<
   Vals extends string[],
   Current extends string[]
 > = Vals extends [infer Next, ...rest: infer Rest]
   ? Rest extends string[]
-    ? _CapitalizeWords<Rest, AddString<Current, SmartCapitalize<string & Next>>>
+    ? _CapitalizeWords<
+        Rest,
+        AddStringToArr<Current, SmartCapitalize<string & Next>>
+      >
     : never
   : Current;
 // internal function, keeps trying to build current until it has a single value (in case of invalid inputs), then starts capitalizing the rest with that first value uncapitalized
@@ -18,7 +20,7 @@ type _CamelCaseWords<
   ? _CapitalizeWords<Vals, [SmartUncapitalize<First & string>]>
   : Vals extends [infer Next, ...rest: infer Rest]
   ? Rest extends string[]
-    ? _CamelCaseWords<Rest, AddString<Current, string & Next>>
+    ? _CamelCaseWords<Rest, AddStringToArr<Current, string & Next>>
     : never
   : Current;
 

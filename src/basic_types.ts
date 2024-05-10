@@ -1,12 +1,10 @@
-import { IsStrictStringLiteral } from "./type_checks";
-
 export type NonEmptyArray<T> = [T, ...rest: T[]];
+export type NonEmptyWords = NonEmptyArray<string>;
 
 export type SnakeCaseSeperator = "_";
 export type KebabCaseSeperator = "-";
-export type CommonSeperators = " " | KebabCaseSeperator | SnakeCaseSeperator;
-
-export type AllSeperatorsDefault =
-  | " "
+export type SpaceSeperator = " ";
+export type CommonSeperators =
+  | SpaceSeperator
   | KebabCaseSeperator
   | SnakeCaseSeperator;
