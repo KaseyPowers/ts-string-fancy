@@ -1,5 +1,5 @@
 import { IfStringLiteralNotWrapped, IsStringLiteral } from "../type_checks";
-import type { FullSplit } from "./split";
+import type { FullSplit } from "./split_full";
 // Will return True for strings of length 1, can be used to recombine capital letters when splitting by capitalize ex. onIDs => ["on", "I", "Ds"] => ["on", "IDs"]
 export type IsStrLength1<Str, True, False = never> = Str extends string
   ? FullSplit<Str> extends [string]

@@ -1,4 +1,4 @@
-import { FullSplit } from "./split";
+import { FullSplit } from "./split_full";
 export type LastWord<Words extends string[]> = Words extends [
   ...start: any[],
   infer Last
