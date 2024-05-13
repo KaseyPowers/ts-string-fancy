@@ -1,4 +1,5 @@
-import type { IsNever } from "../type_checks";
+import type { IsNever, IsStringNotEmpty } from "../type_checks";
+import { InsertBetween } from "./insert";
 
 export type AddToString<Input extends string, ToAdd> = IsNever<
   ToAdd,
@@ -9,24 +10,18 @@ export type AddToString<Input extends string, ToAdd> = IsNever<
     ? `${Input}${ToAdd}`
     : Input
   : Input;
+// Join all words provided
+type _Join<Words, Output extends string = ""> = Words extends string[]
+  ? Words extends [infer Next, ...rest: infer Rest]
+    ? _Join<Rest, AddToString<Output, Next>>
+    : Output
+  : Output;
 
-export type AddToStringWith<
-  Input extends string,
-  ToAdd,
-  Seperator extends string = " "
-> = AddToString<AddToString<Input, Seperator>, ToAdd>;
-
-type _Join<
+export type JoinWords<Words extends string[]> = _Join<Words>;
+// insert JoinWith between each word before joining
+export type JoinWordsWith<
   Words extends string[],
-  Seperator extends string,
-  Current extends string = ""
-> = Words extends [infer Next, ...rest: infer Rest]
-  ? Rest extends string[]
-    ? _Join<Rest, Seperator, AddToStringWith<Current, Next, Seperator>>
-    : Current
-  : Current;
-
-export type JoinStrings<
-  Words extends string[],
-  Seperator extends string = " "
-> = _Join<Words, Seperator>;
+  JoinWith extends string
+> = IsStringNotEmpty<JoinWith, 1, 0> extends 1
+  ? _Join<InsertBetween<Words, JoinWith>>
+  : _Join<Words>;

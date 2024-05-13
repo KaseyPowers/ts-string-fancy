@@ -5,7 +5,8 @@ import type {
   CastString,
   IsStrictStringLiteral,
 } from "../type_checks";
-import { AsArray, TrimString } from "../common";
+import { AsArray } from "../common";
+import { TrimString } from "../trim";
 import { CommonSeperators } from "../basic_types";
 
 // add to array if ToAdd extends string (and is not never)

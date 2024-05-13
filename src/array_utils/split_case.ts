@@ -1,9 +1,15 @@
 import type { AddNonEmptyStringToArr, PushStringsToArr } from "./builders";
-import { IsCapitalized, IsUppercase } from "../upper_lower";
+import { IsCapitalized, IsUppercase } from "../upper_lower_cases";
 import { AddToString } from "./join";
 import { FullSplit } from "./split_full";
 import { AsArray } from "../common";
 
+/**
+ * How this works:
+ * iterating through Parts (expect to be a FullSplit string)
+ * If the next character is capitalized (or uppercase in IsCapitalized check) AND the pending string is not uppercase
+ *   - IsUppercase will return true for an empty string or any string that doesn't include a-z
+ */
 type _CombineByUpper<
   Parts extends string[],
   Pending extends string,
